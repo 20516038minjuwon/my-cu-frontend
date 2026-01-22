@@ -89,10 +89,10 @@ function Header() {
                     <button
                         onClick={handleLogOut}
                         className="text-xs  hover:text-gray-500 transition-colors">
-                        LOGOUT
+                        로그아웃
                     </button>
                 ):(
-                    <Link to={"/login"} className={'text-xs  hidden md:block'}>LOGIN</Link>
+                    <Link to={"/login"} className={'text-xs  hidden md:block'}>로그인</Link>
                 )}
                 <div className={'text-xs  hidden md:block'}>|</div>
                 <Link to={"/admin"} className={'text-xs  hidden md:block'}>점주광장</Link>

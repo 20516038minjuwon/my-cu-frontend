@@ -81,6 +81,7 @@ function Login(){
                     isLoading={isSubmitting}
                     fullWidth={true}
                     size={"lg"}
+                    variant={"primary"}
                 >로그인</Button>
 
                 <div className={twMerge(['w-full','mt-2','flex','flex-end','gap-2'])}>
