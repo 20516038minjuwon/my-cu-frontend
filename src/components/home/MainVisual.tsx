@@ -39,7 +39,7 @@ function MainVisual() {
                 >
                     <img src={img01} alt={"img01"}/>
 
-                    <Link to={"/info"}
+                    <Link to={"/cuStory"}
                         className="mt-6 flex items-center gap-2 text-sm font-semibold text-gray-400 hover:text-gray-600 transition">
                         CU 스토리 보기
                         <span

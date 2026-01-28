@@ -1,15 +1,16 @@
 export interface RegisterFormType{
+    name:string;
     username:string;
-    id:string;
     password:string;
+    password_confirm: string;
     email:string;
     phone:number;
     birthdate:string;
 }
 
 export interface User{
+    name:string;
     username:string;
-    id:string;
     password:string;
     email:string;
     phone:number;
@@ -17,11 +18,13 @@ export interface User{
 }
 
 export interface LoginFormType{
-    id:string;
+    username:string;
     password:string;
 }
 export interface LoginResponse{
     message:string;
-    token:string;
-    user:User;
+    data: {
+        token:string;
+        user:User;
+    }
 }

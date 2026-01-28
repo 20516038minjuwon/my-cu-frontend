@@ -4,31 +4,34 @@ import type {RegisterFormType} from "../types/user.ts";
 import {twMerge} from "tailwind-merge";
 import Input from "../components/common/Input.tsx";
 import Button from "../components/common/Button.tsx";
+import {AxiosError} from "axios";
+import {registerUser} from "../api/auth.api.ts";
 
 function Register() {
     const navigate = useNavigate();
     const {
         register,
         handleSubmit,
+        watch,
         setError,
         formState: {errors, isSubmitting},
     } = useForm<RegisterFormType>();
 
     const onSubmit = async (data: RegisterFormType) => {
-       /* setError("root", {message: ""});
+        setError("root", {message: ""});
         try {
             await registerUser(data);
             alert("회원가입이 완료되었습니다.로그인 해주세요")
             navigate("/login");
         } catch (e) {
-            /!* try문 중에 어디서든지 에러가 발생된다면 catch절이 실행될 거임
-            * 혹시 그 error가 ,Axios에서 발생된 AxiosError라면,*!/
+            /* try문 중에 어디서든지 에러가 발생된다면 catch절이 실행될 거임
+            * 혹시 그 error가 ,Axios에서 발생된 AxiosError라면,*/
             if (e instanceof AxiosError) {
                 setError("root", {message: e.response?.data?.message || "회원가입에 실패했습니다."});
             } else {
                 setError("root", {message: "오류가 발생했습니다."})
             }
-        }*/
+        }
     };
     return (
         <div
@@ -45,8 +48,8 @@ function Register() {
                 <div className={twMerge(["flex", "flex-col", "gap-5"])}>
                     <Input
                         placeholder={"이름"}
-                        error={errors.username}
-                        registration={register("username", {
+                        error={errors.name}
+                        registration={register("name", {
                             required: "이름은 필수값입니다.",
                             minLength: {value: 2, message: "이름은 2글자 이상 입력해주세요."},
                         })}
@@ -54,7 +57,7 @@ function Register() {
                     <Input
                         placeholder={"아이디"}
                         error={errors.username}
-                        registration={register("id", {
+                        registration={register("username", {
                             required: "아이디는 필수값입니다.",
                             minLength: {value: 4, message: "아이디는 4자 이상 입력해주세요."},
                         })}
@@ -72,6 +75,14 @@ function Register() {
                         })}
                     />
                     <Input
+                        type={"password"}
+                        placeholder={"비밀번호 확인"}
+                        registration={register("password_confirm", {
+                            required: "비밀번호 확인을 입력해주세요.",
+                            validate: (value) => value === watch("password") || "비밀번호가 일치하지 않습니다.",
+                        })}
+                    />
+                    <Input
                         fullWidth={true}
                         placeholder={"이메일을 입력해주세요."}
                         type={"text"}
@@ -85,13 +96,13 @@ function Register() {
                         error={errors.email}
                     />
                     <Input
-                        placeholder={"휴대폰 번호 (-없이 입력)"}
+                        placeholder={"휴대폰 번호"}
                         error={errors.phone}
                         registration={register("phone", {
                             required: "휴대폰 번호는 필수값입니다.",
                             pattern: {
-                                value: /^01([0|1|6|7|8|9])?([0-9]{3,4})?([0-9]{4})$/,
-                                message: "올바른 휴대폰 번호 형식이 아닙니다.(-제외)",
+                                value: /^\d{3}-\d{3,4}-\d{4}$/,
+                                message: "올바른 휴대폰 번호 형식이 아닙니다.",
                             },
                         })}
                     />
@@ -100,14 +111,14 @@ function Register() {
                     <div className={twMerge(["flex-1"])}>
                         <Input
                             type={"text"}
-                            placeholder={"생년월일 (YYYYMMDD)"}
-                            maxLength={8}
+                            placeholder={"생년월일 (YYYY-MM-DD)"}
+                            maxLength={10}
                             error={errors.birthdate}
                             registration={register("birthdate", {
                                 required: "생년월일은 필수값 입니다.",
-                                minLength: {value: 8, message: "8자리로 입력해주세요."},
-                                maxLength: {value: 8, message: "8자리로 입력해주세요."},
-                                pattern: {value: /^[0-9]+$/, message: "숫자만 입력해주세요."},
+                                minLength: {value: 10, message: "10자리로 입력해주세요."},
+                                maxLength: {value: 10, message: "10자리로 입력해주세요."},
+                                pattern: {value: /^\d{4}-\d{2}-\d{2}$/, message: "(-)를 포함해서 입력해주세요."},
                             })}
                         />
                     </div>
@@ -124,7 +135,7 @@ function Register() {
                     fullWidth={true}
                     size={"lg"}
                 >회원가입</Button>
-                <div className={twMerge(['w-full','mt-2','flex','flex-end','gap-2'])}>
+                <div className={twMerge(['w-full', 'mt-2', 'flex', 'flex-end', 'gap-2'])}>
                     <p className={'text-sm text-gray-500 mt-[1px]'}>
                         이미 계정이 있으신가요 ? &rarr;
                     </p>

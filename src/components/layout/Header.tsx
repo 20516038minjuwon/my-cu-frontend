@@ -10,7 +10,7 @@ const MENU = [
         name: "CU소개",
         path: "",
         subMenu: [
-            {name: "브랜드 스토리", path: "/info/"}
+            {name: "브랜드 스토리", path: "/cuStory/"}
         ]
     },
     {
@@ -48,7 +48,7 @@ function Header() {
     const {pathname} = useLocation();
     const navigate = useNavigate();
 
-    const{isLoggedIn,user,logout}=useAuthStore();
+    const{isLoggedIn,username,logout}=useAuthStore();
 
     const [isScrolled, setIsScrolled] = useState(false);
 
@@ -85,7 +85,7 @@ function Header() {
                 )}
         >
             <div className={twMerge(['flex','gap-2','justify-end','p-4'])}>
-                {isLoggedIn &&user ?(
+                {isLoggedIn &&username ?(
                     <button
                         onClick={handleLogOut}
                         className="text-xs  hover:text-gray-500 transition-colors">

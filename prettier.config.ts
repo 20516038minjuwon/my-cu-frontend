@@ -1,6 +1,6 @@
 export default {
     singleQuote: false,
     tabWidth: 4,
-    printWidth: 120,
+    printWidth: 100,
     arrowParens: "always",
 }

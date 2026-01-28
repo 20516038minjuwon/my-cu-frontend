@@ -6,6 +6,7 @@ import Input from "../components/common/Input.tsx";
 import Button from "../components/common/Button.tsx";
 import { AxiosError } from "axios";
 import useAuthStore from "../stores/useAuthStore.ts";
+import {loginUser} from "../api/auth.api.ts";
 
 function Login(){
     const navigate = useNavigate();
@@ -21,19 +22,19 @@ function Login(){
 
     const onSubmit =async (data: LoginFormType) => {
         setError("root",{message:""})
-        /*try{
+        try{
             const response =await loginUser(data);
-            /!* 사용자 정보를 저장 *!/
-            login(response.token,response.user);
+            login(response.data.token,response.data.user.username);
             alert("로그인 되었습니다.")
             navigate("/")
         } catch(e){
             if(e instanceof AxiosError){
                 setError("root",{message:e.response?.data.message||"로그인에 실패하였습니다."})
             }else{
+                console.log(e)
                 setError("root",{message:"알 수 없는 오류가 발생했습니다."})
             }
-        }*/
+        }
     }
     return (
         <div
@@ -52,10 +53,10 @@ function Login(){
                         fullWidth={true}
                         placeholder={"아이디를 입력해주세요."}
                         type={"text"}
-                        registration={register("id", {
+                        registration={register("username", {
                             required: "아이디는 필수값입니다.",
                         })}
-                        error={errors.id}
+                        error={errors.username}
                     />
                     <Input
                         type={"password"}
