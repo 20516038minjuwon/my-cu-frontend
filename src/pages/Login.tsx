@@ -24,7 +24,7 @@ function Login(){
         setError("root",{message:""})
         try{
             const response =await loginUser(data);
-            login(response.data.token,response.data.user.username);
+            login(response.data.token,response.data.user);
             alert("로그인 되었습니다.")
             navigate("/")
         } catch(e){

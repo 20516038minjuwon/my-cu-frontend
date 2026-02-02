@@ -48,7 +48,7 @@ function Header() {
     const {pathname} = useLocation();
     const navigate = useNavigate();
 
-    const{isLoggedIn,username,logout}=useAuthStore();
+    const{isLoggedIn, user, logout}=useAuthStore();
 
     const [isScrolled, setIsScrolled] = useState(false);
 
@@ -85,7 +85,7 @@ function Header() {
                 )}
         >
             <div className={twMerge(['flex','gap-2','justify-end','p-4'])}>
-                {isLoggedIn &&username ?(
+                {isLoggedIn && user ?(
                     <button
                         onClick={handleLogOut}
                         className="text-xs  hover:text-gray-500 transition-colors">
