@@ -8,28 +8,27 @@ import useAuthStore from "../../stores/useAuthStore.ts";
 const MENU = [
     {
         name: "CU소개",
-        path: "",
+        path: "/cuStory",
         subMenu: [
             {name: "브랜드 스토리", path: "/cuStory/"}
         ]
     },
     {
         name: "상품/서비스",
-        path: "",
+        path: "/productService",
         subMenu: [
-            {name: "전체 상품", path: "/"},
-            {name: "CU 차별화 상품", path: "/"},
-            {name: "행사 상품", path: "/"},
-            {name: "생활편의 서비스", path: "/"},
-            {name: "제휴카드", path: "/"},
+            {name: "전체 상품", path: "/productService/"},
+            {name: "CU 차별화 상품", path: "/productService/different"},
+            {name: "행사 상품", path: "/productService/sale"},
+            {name: "생활편의 서비스", path: "/productService/service"},
+            {name: "제휴카드", path: "/productService/cards"},
         ]
     },
     {
         name: "멤버십",
-        path: "",
+        path: "membership",
         subMenu: [
-            {name: "멤버십 소개", path: "/"},
-            {name: "포켓 CU", path: "/"},
+            {name: "멤버십 소개", path: "/membership"},
         ]
     },
     {
@@ -41,7 +40,7 @@ const MENU = [
             {name: "입점 상담 신청", path: "/"},
         ]
     },
-    {name: "새로운소식", path: ""},
+    {name: "새로운소식", path: "newContent"},
 ]
 
 function Header() {

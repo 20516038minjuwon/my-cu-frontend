@@ -1,55 +1,62 @@
 import img01 from "../../assets/images/info/slide1.jpg";
 import img02 from "../../assets/images/info/slide2.jpg";
 import img03 from "../../assets/images/info/slide3.jpg";
+import img04 from "../../assets/images/main_visual/CF63BE730326443388A5FF6760AF120E.png";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
-import {Autoplay,Navigation, Pagination} from "swiper/modules";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import SlideCard from "../common/SlideCard.tsx";
-import {twMerge} from "tailwind-merge";
+import { twMerge } from "tailwind-merge";
 
-const SLIDE =[img01,img02,img03];
+const SLIDE = [img01, img02, img03, img04];
 function SecondMainVisual() {
     return (
         <section className="w-full">
-            <div className="w-full,'h-[200px] relative">
+            <div className="w-full h-[200px] relative">
                 <Swiper
-                    modules={[Autoplay, Navigation, Pagination]}
-                    slidesPerView={"auto"}
-                    centeredSlides={true}
-                    spaceBetween={30}
-                    loop={true}
                     autoplay={{
                         delay: 3000,
                         disableOnInteraction: false,
                     }}
+                    slidesPerView={"auto"}
+                    centeredSlides={true}
+                    initialSlide={1}
+                    spaceBetween={30}
+                    loop={true}
                     navigation={true}
+                    loopAdditionalSlides={4}
                     pagination={{ clickable: true }}
+                    modules={[Autoplay, Navigation, Pagination]}
                     className={twMerge(
-                        ['!overflow-visible',"w-full"],
+                        ["!overflow-visible", "w-full"],
                         [
-                            "[&_.swiper-pagination]:!bottom-[-40px]",
+                            "[&_.swiper-pagination]:!bottom-[-50px]",
                             "[&_.swiper-pagination-bullet-active]:!bg-green-600",
                             "[&_.swiper-pagination-bullet]:!w-3",
                             "[&_.swiper-pagination-bullet]:!h-3",
-                            "[&_.swiper-button-prev]:!w-4 [&_.swiper-button-next]:!w-4",
-                            "[&_.swiper-button-prev]:!p-8 [&_.swiper-button-next]:!p-8",
+                        ],
+                        [
                             "[&_.swiper-button-next]:!left-[calc(50%+370px)] [&_.swiper-button-prev]:!left-[calc(50%-430px)]",
                             "[&_.swiper-button-prev]:!rounded-full [&_.swiper-button-next]:!rounded-full",
                             "[&_.swiper-button-next]:!bg-white/70 [&_.swiper-button-prev]:!bg-white/70",
+                            "[&_.swiper-button-next]:!m-2 [&_.swiper-button-prev]:!m-2",
                             "[&_.swiper-button-next]:after:text-xl [&_.swiper-button-next]:!text-gray-800",
                             "[&_.swiper-button-prev]:after:text-xl [&_.swiper-button-prev]:!text-gray-800",
-
                         ],
                     )}
                 >
                     {SLIDE.map((img, index) => (
                         <SwiperSlide
                             key={index}
-                            className={twMerge(['!w-[340px]','md:!w-[600px]','lg:!w-[800px]'])}
+                            className={twMerge([
+                                "!w-[340px]",
+                                "md:!w-[600px]",
+                                "lg:!w-[800px]",
+                            ])}
                         >
-                            <div className={'w-full h-full'}>
+                            <div className={"w-full h-full"}>
                                 <SlideCard image={img} />
                             </div>
                         </SwiperSlide>
@@ -60,10 +67,10 @@ function SecondMainVisual() {
     );
 }
 
-
 export default SecondMainVisual;
 
-{/*
+{
+    /*
 return (
     <section className="w-full py-16">
 <div className="mx-auto max-w-[1320px] overflow-hidden">
@@ -93,4 +100,5 @@ return (
 </div>
 </section>
 );
-*/}
+*/
+}

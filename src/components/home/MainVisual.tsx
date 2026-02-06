@@ -31,9 +31,8 @@ function MainVisual() {
                 {/* 텍스트 영역 */}
                 <div
                     className={twMerge(
-                        "hero-content",
-                        "transition-all duration-1000 ease-out",
-                        "opacity-0 translate-y-6",
+                        ["hero-content","transition-all", "duration-1000", "ease-out"],
+                        ["opacity-0","translate-y-6"],
                         show && "opacity-100 translate-y-0"
                     )}
                 >
