@@ -18,6 +18,9 @@ export interface Product {
     updatedAt: string;
 }
 
+/*export interface CartItem extends Product {
+    quantity: number;
+}*/
 export interface ProductListQuery {
     page?: number;
     limit?: number;

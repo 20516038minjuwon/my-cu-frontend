@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
-
+import { useLocation, useNavigate } from "react-router";
 
 type Tab<T extends string> = {
     key: T;
@@ -10,14 +10,12 @@ type Tab<T extends string> = {
 interface StickyTabBarProps<T extends string> {
     tabs: readonly Tab<T>[];
     activeTab: T;
-    onChange: (key: T) => void;
 }
 
-function HeaderBar<T extends string>({
-    tabs,
-    activeTab,
-    onChange,
-}: StickyTabBarProps<T>) {
+function HeaderBar<T extends string>({ tabs, activeTab }: StickyTabBarProps<T>) {
+    const navigate = useNavigate();
+    const location = useLocation();
+
     const [isStuck, setIsStuck] = useState(false);
 
     useEffect(() => {
@@ -30,12 +28,9 @@ function HeaderBar<T extends string>({
     }, []);
     return (
         <div
-            className={twMerge(
-                ["sticky", "top-[129px]", "z-40"],
-                isStuck && "w-full bg-gray-800",
-            )}
+            className={twMerge(["sticky", "top-[129px]", "z-40"], isStuck && "w-full bg-gray-800")}
         >
-            <nav
+            <div
                 className={twMerge(
                     ["bg-gray-800"],
                     ["transition-all", "duration-300", "mx-auto", "max-w-6xl"],
@@ -47,7 +42,7 @@ function HeaderBar<T extends string>({
                         <li key={tab.key} className="flex-1">
                             <button
                                 type="button"
-                                onClick={() => onChange(tab.key)}
+                                onClick={() => navigate(location.pathname + `?tab=${tab.key}`)}
                                 className={`
                 h-full w-full rounded-full text-md font-bold transition
                 ${
@@ -62,7 +57,7 @@ function HeaderBar<T extends string>({
                         </li>
                     ))}
                 </ul>
-            </nav>
+            </div>
         </div>
     );
 }

@@ -30,7 +30,7 @@ function Button({
         secondary: twMerge(["bg-white", "text-black", "border-gray-300", "hover:bg-gray-50"]),
         outline: twMerge(["bg-transparent", "text-black", "border-black", "hover:bg-gray-100"]),
         error: twMerge(["bg-red-600", "text-white", "hover:bg-red-700", "border", "border-transparent"]),
-        ghost: twMerge(["bg-transparent", "text-gray-500", "border-none", "hover:text-black"]),
+        ghost: twMerge(["bg-[#772b8f]", "text-white", "border-none", "hover:opacity-80"]),
     };
     /* 변형 (크기) 스타일 */
     const sizes = {

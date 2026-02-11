@@ -17,11 +17,10 @@ const MENU = [
         name: "상품/서비스",
         path: "/productService",
         subMenu: [
-            {name: "전체 상품", path: "/productService/"},
-            {name: "CU 차별화 상품", path: "/productService/different"},
-            {name: "행사 상품", path: "/productService/sale"},
-            {name: "생활편의 서비스", path: "/productService/service"},
-            {name: "제휴카드", path: "/productService/cards"},
+            {name: "전체 상품", path: "/productService"},
+            {name: "행사 상품", path: "/productService?tab=PromotionProduct"},
+            {name: "생활편의 서비스", path: "/productService?tab=dailyService"},
+            {name: "제휴카드", path: "/productService?tab=partnerCard"},
         ]
     },
     {

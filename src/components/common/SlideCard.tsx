@@ -8,8 +8,8 @@ interface SlideCardProps {
 function SlideCard({ image, className }: SlideCardProps) {
     return (
         <div className={twMerge(
-            "w-full h-full rounded-[40px] overflow-hidden shadow-sm bg-white",
-            className
+            ["w-full","h-full" ,"rounded-[40px]", "overflow-hidden" ,"shadow-sm" ,"bg-white"],
+            [className]
         )}>
             <img
                 src={image}

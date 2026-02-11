@@ -18,6 +18,7 @@ import AdminUserCreate from "../pages/(admin)/AdminUserCreate.tsx";
 import AdminUserEdit from "../pages/(admin)/AdminUserEdit.tsx";
 import ProductServiceList from "../pages/product/ProductServiceList.tsx";
 import Membership from "../pages/membership/Membership.tsx";
+import ProductDetail from "../pages/product/ProductDetail.tsx";
 
 export const adminOnlyLoader = () => {
     const { isLoggedIn, user } = useAuthStore.getState();
@@ -45,7 +46,10 @@ const router = createBrowserRouter([
             { path: "cuStory", element: <CuStory /> },
             {
                 path: "productService",
-                children: [{ index: true, element: <ProductServiceList /> }],
+                children: [
+                    { index: true, element: <ProductServiceList /> },
+                    {path:":id",element:<ProductDetail/>},
+                ],
             },
             {
                 path: "membership",

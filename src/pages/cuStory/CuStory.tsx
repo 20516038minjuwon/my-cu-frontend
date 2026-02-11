@@ -16,8 +16,9 @@ import daily01 from "../../assets/images/brand_story/imgi_42_refresh_bg04.jpg"
 import daily02 from "../../assets/images/brand_story/imgi_44_refresh_bg05.jpg"
 import daily03 from "../../assets/images/brand_story/imgi_45_refresh_bg06.jpg"
 import triangle from "../../assets/images/brand_story/imgi_41_refresh_bg07.jpg"
-import {twMerge} from "tailwind-merge";
-import { useState } from "react";
+import { twMerge } from "tailwind-merge";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router";
 
 const TABS = [
     { key: 'brand', label: '브랜드 스토리' },
@@ -27,6 +28,13 @@ const TABS = [
 
 function CuStory() {
     const [activeTab, setActiveTab] = useState('brand');
+    const [params] = useSearchParams();
+    const tab = params.get("tab");
+
+    useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        if (tab) setActiveTab(tab)
+    }, [tab]);
 
     return (
         <main>
@@ -39,7 +47,6 @@ function CuStory() {
                 <HeaderBar
                     tabs={TABS}
                     activeTab={activeTab}
-                    onChange={setActiveTab}
                 />
                 <section className="max-w-6xl mx-auto py-10 px-6 text-gray-700">
                     <div>

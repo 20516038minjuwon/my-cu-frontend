@@ -1,34 +1,38 @@
-import {  useState } from "react";
+import { useEffect, useState } from "react";
 import HeaderBar from "../../components/custory/HeaderBar.tsx";
 import AllProduct from "../../components/product/AllProduct.tsx";
-import SaleProduct from "../../components/product/SaleProduct.tsx";
-import DifferentiationProduct from "../../components/product/DifferentiationProduct.tsx";
+import PromotionProduct from "../../components/product/PromotionProduct.tsx";
 import DailyService from "../../components/product/DailyService.tsx";
 import PartnerCard from "../../components/product/PartnerCard.tsx";
 import { twMerge } from "tailwind-merge";
+import { useSearchParams } from "react-router";
 
 const TAB_COMPONENT_MAP = {
     allProduct: AllProduct,
-    differentiationProduct: DifferentiationProduct,
-    saleProduct: SaleProduct,
+    saleProduct: PromotionProduct,
     dailyService: DailyService,
     partnerCard: PartnerCard,
 };
 
-type TabKey ="allProduct"|"differentiationProduct"|"saleProduct"|"dailyService"|"partnerCard"
+type TabKey ="allProduct"|"saleProduct"|"dailyService"|"partnerCard"
 
 const TABS:{key:TabKey,label:string}[] = [
     { key: 'allProduct', label: '전체 상품' },
-    { key: 'differentiationProduct', label: 'CU 차별화 상품' },
     { key: 'saleProduct', label: '행사 상품' },
     { key: 'dailyService', label: '생활편의 서비스' },
     { key: 'partnerCard', label: '제휴카드' },
 ];
 
 function ProductServiceList() {
+    const [params] = useSearchParams();
+    const tab = params.get("tab");
 
-    //tab키
-    const [activeTab, setActiveTab] = useState<TabKey>('allProduct');
+    const [activeTab, setActiveTab] = useState<TabKey>("allProduct");
+
+    useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        if (tab) setActiveTab(tab as TabKey)
+    }, [tab]);
 
     const ActiveComponent = TAB_COMPONENT_MAP[activeTab];
 
@@ -41,9 +45,8 @@ function ProductServiceList() {
         <HeaderBar
             tabs={TABS}
             activeTab={activeTab}
-            onChange={setActiveTab}
         />
-        <main className={twMerge(["max-w-5xl", "mx-auto", "py-12"])}>
+        <main className={twMerge(["max-w-8xl", "mx-auto", "py-12"])}>
             <ActiveComponent/>
         </main>
     </>
