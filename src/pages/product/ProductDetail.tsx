@@ -71,7 +71,6 @@ function ProductDetail() {
             }
             return;
         }
-        // TODO: 구매 페이지 이동 로직
         console.log("바로 구매:", { product, quantity });
         navigate("/order");
     };
