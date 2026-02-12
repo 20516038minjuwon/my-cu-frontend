@@ -18,13 +18,11 @@ function BestProductSlider() {
     useEffect(() => {
         const fetchBestProducts = async () => {
             try {
-                // 1. 전체 상품을 불러옵니다.
                 const res = await getProducts({ page: 1, limit: 100 });
 
-                // 2. [수정] isBest인 상품만 필터링한 후, 앞에서부터 딱 10개만 자릅니다.
                 const filtered = res.data
                     .filter((p: Product) => p.isBest)
-                    .slice(0, 10); // 이 부분이 핵심입니다!
+                    .slice(0, 10);
 
                 setBestProducts(filtered);
             } catch (e) {
@@ -53,12 +51,12 @@ function BestProductSlider() {
                 <Swiper
                     modules={[Navigation, Pagination,Autoplay]}
                     autoplay={{
-                        delay: 3000, // 5초마다 다음 그룹으로 이동
-                        disableOnInteraction: false, // 사용자가 수동으로 조작해도 자동 재생 유지
+                        delay: 3000,
+                        disableOnInteraction: false,
                     }}
                     slidesPerView={5}
-                    slidesPerGroup={5}        // [추가] 한 번에 넘어갈 개수
-                    centeredSlides={false}    // [확인] 왼쪽 정렬 유지
+                    slidesPerGroup={5}
+                    centeredSlides={false}
                     loop={true}
                     spaceBetween={20}
                     navigation={{

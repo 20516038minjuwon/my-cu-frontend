@@ -19,6 +19,9 @@ import AdminUserEdit from "../pages/(admin)/AdminUserEdit.tsx";
 import ProductServiceList from "../pages/product/ProductServiceList.tsx";
 import Membership from "../pages/membership/Membership.tsx";
 import ProductDetail from "../pages/product/ProductDetail.tsx";
+import SearchResult from "../components/common/product/SearchResult.tsx";
+import CartPage from "../pages/(shop)/CartPage.tsx";
+import OrderPage from "../pages/(shop)/OrderPage.tsx";
 
 export const adminOnlyLoader = () => {
     const { isLoggedIn, user } = useAuthStore.getState();
@@ -55,6 +58,13 @@ const router = createBrowserRouter([
                 path: "membership",
                 children: [{ index: true, element: <Membership /> }],
             },
+            {path:"search", element:<SearchResult/>},
+            {path:"cart",element:<CartPage/>},
+            {path:"order",children: [
+                    {index:true,element: <OrderPage/>},
+                    {path:"success",element: <div>성공</div>},
+                    {path:"fail",element: <div>실패</div>},
+                ]}
         ],
     },
     {
