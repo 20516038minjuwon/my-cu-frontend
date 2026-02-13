@@ -7,9 +7,14 @@ export interface CartItem{
         price: number;
         image:string;
     }
+    totalPrice: number;
 }
 
 export interface CartResponse{
-    id:number;
-    items:CartItem[];
+    data: {
+        cartId:number;
+        items:CartItem[];
+        totalCartPrice: number;
+    }
+
 }

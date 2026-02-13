@@ -51,7 +51,7 @@ function ProductDetail() {
         }
         if(!product)return null;
         try{
-            addItem(product ,quantity);
+            await addItem(product.id, quantity);
             if(window.confirm("장바구니에 상품을 담았습니다. 장바구니로 이동하시겠습니까 ?")){
                 navigate("/cart")
                 alert(`${product.name} ${quantity}개가 장바구니에 담겼습니다.`)

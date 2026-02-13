@@ -18,7 +18,7 @@ const MENU = [
         path: "/productService",
         subMenu: [
             {name: "전체 상품", path: "/productService"},
-            {name: "행사 상품", path: "/productService?tab=PromotionProduct"},
+            {name: "행사 상품", path: "/productService?tab=promotionProduct"},
             {name: "생활편의 서비스", path: "/productService?tab=dailyService"},
             {name: "제휴카드", path: "/productService?tab=partnerCard"},
         ]

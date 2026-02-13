@@ -1,14 +1,16 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type {CartItem} from "../types/cart.ts";
-import type {Product} from "../types/product.ts";
+import { addToCart, getCart, removeCartItem } from "../api/cart.api.ts";
 
 interface CartState {
     items: CartItem[];
-    // 상세페이지에서 Product 객체와 수량을 받아서 추가
-    addItem: (product: Product, quantity: number) => void;
-    removeItem: (productId: number) => void;
-    updateQuantity: (productId: number, quantity: number) => void;
+    loading: boolean;
+
+    fetchCart: () => Promise<void>;
+    addItem: (productId: number, quantity: number) => Promise<void>;
+    removeItem: (itemId: number) => Promise<void>;
+    updateQuantity: (itemId: number, quantity: number) => Promise<void>;
     clearCart: () => void;
     getTotalCount: () => number;
     getTotalPrice: () => number;
@@ -18,52 +20,53 @@ export const useCartStore = create<CartState>()(
     persist(
         (set, get) => ({
             items: [],
+            loading:false,
 
-            addItem: (product, quantity) => {
-                const currentItems = get().items;
-                // items 안의 product.id와 비교해야 함
-                const existingItem = currentItems.find((item) => item.product.id === product.id);
+            fetchCart: async () => {
+                set({loading:true});
 
-                if (existingItem) {
-                    // 이미 장바구니에 있으면 quantity만 업데이트
-                    set({
-                        items: currentItems.map((item) =>
-                            item.product.id === product.id
-                                ? { ...item, quantity: item.quantity + quantity }
-                                : item
-                        ),
-                    });
-                } else {
-                    // 새로 추가 (CartItem 구조에 맞게 생성)
-                    const newItem: CartItem = {
-                        id: Date.now(), // 장바구니 아이템 자체의 고유 ID (임시)
-                        quantity: quantity,
-                        product: {
-                            id: product.id,
-                            name: product.name,
-                            price: product.price,
-                            image: product.image,
-                        },
-                    };
-                    set({ items: [...currentItems, newItem] });
+                try {
+                    const result = await getCart();
+                    set({items:result.items});
+                }catch(e){
+                    console.log("장바구니 업로드 실패 ",e);
+                }finally{
+                    set({loading:false});
                 }
             },
 
-            removeItem: (productId) => {
-                set({
-                    items: get().items.filter((item) => item.product.id !== productId),
-                });
+            addItem: async (productId, quantity) => {
+                try {
+                    await addToCart(productId,quantity);
+                    await get().fetchCart();
+                }catch(e){
+                    console.log("장바구니 담기 실패",e);
+                    throw e;
+                }
             },
 
-            updateQuantity: (productId, quantity) => {
+            removeItem: async (itemId) => {
+                const prevItems =get().items;
+                set({ items: prevItems.filter((item) => item.id !== itemId), });
+                try {
+                    await removeCartItem(itemId);
+                }catch(e){
+                    set({items:prevItems});
+                    console.log("장바구니 항목 삭제 실패",e);
+                }
+            },
+
+            updateQuantity: async (itemId, quantity) => {
+                if(quantity <1)return;
+                const prevItems =get().items;
                 set({
-                    items: get().items.map((item) =>
-                        item.product.id === productId ? { ...item, quantity } : item
+                    items: prevItems.map((item) =>
+                        (item.id === itemId ? { ...item, quantity } : item)
                     ),
                 });
             },
 
-            clearCart: () => set({ items: [] }),
+            clearCart: () =>  set({ items: [] }),
 
             getTotalCount:()=>{
                 return get().items.reduce((acc, item) => acc + item.quantity, 0);

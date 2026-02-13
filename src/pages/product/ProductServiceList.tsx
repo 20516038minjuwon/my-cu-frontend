@@ -9,16 +9,16 @@ import { useSearchParams } from "react-router";
 
 const TAB_COMPONENT_MAP = {
     allProduct: AllProduct,
-    saleProduct: PromotionProduct,
+    promotionProduct: PromotionProduct,
     dailyService: DailyService,
     partnerCard: PartnerCard,
 };
 
-type TabKey ="allProduct"|"saleProduct"|"dailyService"|"partnerCard"
+type TabKey ="allProduct"|"promotionProduct"|"dailyService"|"partnerCard"
 
 const TABS:{key:TabKey,label:string}[] = [
     { key: 'allProduct', label: '전체 상품' },
-    { key: 'saleProduct', label: '행사 상품' },
+    { key: 'promotionProduct', label: '행사 상품' },
     { key: 'dailyService', label: '생활편의 서비스' },
     { key: 'partnerCard', label: '제휴카드' },
 ];
