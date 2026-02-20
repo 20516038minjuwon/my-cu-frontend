@@ -26,9 +26,9 @@ function Button({
     );
     /* 변형 (색상) 스타일 */
     const variants = {
-        primary: twMerge(["bg-green-900", "text-white", "hover:bg-gray-800", "border-transparent"]),
+        primary: twMerge(["bg-green-900", "text-white", "hover:bg-green-800", "border-transparent"]),
         secondary: twMerge(["bg-white", "text-black", "border-gray-300", "hover:bg-gray-50"]),
-        outline: twMerge(["bg-transparent", "text-black", "border-black", "hover:bg-gray-100"]),
+        outline: twMerge(["text-black", "border-black", "bg-gray-100","hover:bg-gray-200"]),
         error: twMerge(["bg-red-600", "text-white", "hover:bg-red-700", "border", "border-transparent"]),
         ghost: twMerge(["bg-[#772b8f]", "text-white", "border-none", "hover:opacity-80"]),
     };

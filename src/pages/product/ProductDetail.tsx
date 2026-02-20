@@ -5,6 +5,8 @@ import type { Product } from "../../types/product.ts";
 import { useCartStore } from "../../stores/useCartStore.ts";
 import useAuthStore from "../../stores/useAuthStore.ts";
 import { twMerge } from "tailwind-merge";
+import useOrderStore from "../../stores/useOrderStore.ts";
+import type { CartItem } from "../../types/cart.ts";
 
 function ProductDetail() {
     const { id } = useParams();
@@ -12,6 +14,7 @@ function ProductDetail() {
 
     const {addItem}=useCartStore();
     const{isLoggedIn}=useAuthStore();
+    const { setOrderItems } = useOrderStore();
 
     const [product, setProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState(true);
@@ -71,7 +74,25 @@ function ProductDetail() {
             }
             return;
         }
-        console.log("바로 구매:", { product, quantity });
+        if (!product) return;
+
+        const directOrderItem: CartItem = {
+            id: -1,
+            quantity: quantity,
+            totalPrice: product.price * quantity,
+            product: {
+                id: product.id,
+                image: product.image,
+                name: product.name,
+                price: product.price,
+            }
+        };
+
+        // 2. OrderStore에 배열 형태로 저장 (OrderPage는 배열을 받으므로)
+        setOrderItems([directOrderItem]);
+
+        // 3. 페이지 이동
+        console.log("CU 주문 정보 저장 완료:", directOrderItem);
         navigate("/order");
     };
 

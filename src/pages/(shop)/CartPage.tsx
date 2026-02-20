@@ -3,16 +3,19 @@ import useAuthStore from "../../stores/useAuthStore.ts";
 import { useCartStore } from "../../stores/useCartStore.ts";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
+import { IoClose } from "react-icons/io5";
+import useOrderStore from "../../stores/useOrderStore.ts";
 
 function CartPage() {
     const navigate = useNavigate();
     const { items, loading, fetchCart, updateQuantity, removeItem, getTotalPrice } = useCartStore();
     const { isLoggedIn } = useAuthStore();
+    const {setOrderItems}=useOrderStore();
+
 
     useEffect(() => {
         fetchCart().then(() => {});
     }, [fetchCart]);
-
 
     if (loading && items.length === 0) {
         return (
@@ -45,6 +48,11 @@ function CartPage() {
             navigate("/login");
             return;
         }
+        if(items.length === 0){
+            alert("주문할 상품이 없습니다.")
+            return;
+        }
+        setOrderItems(items);
         navigate("/order");
     };
 
@@ -57,10 +65,7 @@ function CartPage() {
                 <div className="lg:col-span-2">
                     <div className="border-t border-gray-200">
                         {items.map((item) => (
-                            <div
-                                key={item.id}
-                                className="flex items-center py-6 border-b border-gray-100"
-                            >
+                            <div key={item.id} className="flex py-6 border-b border-gray-100">
                                 <img
                                     src={item.product.image}
                                     alt={item.product.name}
@@ -71,7 +76,7 @@ function CartPage() {
                                         {item.product.name}
                                     </h3>
                                     <p className="mt-1 text-sm text-gray-500">
-                                        {(item.product.price?? 0).toLocaleString()}원
+                                        {(item.product.price ?? 0).toLocaleString()}원
                                     </p>
 
                                     <div className="flex items-center mt-4">
@@ -104,8 +109,13 @@ function CartPage() {
                                         </button>
                                     </div>
                                 </div>
-                                <div className="text-right font-semibold text-gray-900">
-                                    {(item.product.price * item.quantity).toLocaleString()}원
+                                <div className={twMerge(["flex", "flex-col", "gap-11"])}>
+                                    <div className={twMerge(["right"])}>
+                                        <IoClose onClick={() => removeItem(item.id)} size={20} />
+                                    </div>
+                                    <div className="text-right font-semibold text-gray-900">
+                                        {(item.product.price * item.quantity).toLocaleString()}원
+                                    </div>
                                 </div>
                             </div>
                         ))}

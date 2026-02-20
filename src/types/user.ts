@@ -6,7 +6,7 @@ export interface RegisterFormType {
     password: string;
     password_confirm: string;
     email: string;
-    phone: number;
+    phone: string;
     birthdate: string;
 }
 
@@ -15,7 +15,7 @@ export interface User {
     username: string;
     password: string;
     email: string;
-    phone: number;
+    phone: string;
     birthdate: string;
     role: UserRole;
 }
