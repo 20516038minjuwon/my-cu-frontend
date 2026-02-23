@@ -32,11 +32,11 @@ const MENU = [
     },
     {
         name: "입점상담",
-        path: "",
+        path: "/sellerInquiry",
         subMenu: [
-            {name: "입점 프로세스", path: "/"},
-            {name: "기준 안내", path: "/"},
-            {name: "입점 상담 신청", path: "/"},
+            {name: "입점 프로세스", path: "/sellerInquiry?tab=sellerProcess"},
+            {name: "기준 안내", path: "/sellerInquiry?tab=sellerCriteria"},
+            {name: "입점 상담 신청", path: "/sellerInquiry?tab=sellerApply"},
         ]
     },
     {name: "새로운소식", path: "newContent"},
@@ -84,11 +84,16 @@ function Header() {
         >
             <div className={twMerge(['flex','gap-2','justify-end','p-4'])}>
                 {isLoggedIn && user ?(
-                    <button
-                        onClick={handleLogOut}
-                        className="text-xs  hover:text-gray-500 transition-colors">
-                        로그아웃
-                    </button>
+                    <>
+                        <Link to={"/my-page"} className={'text-xs hover:text-gray-500'}>
+                            MY PAGE |
+                        </Link>
+                        <button
+                            onClick={handleLogOut}
+                            className="text-xs  hover:text-gray-500 transition-colors">
+                            로그아웃
+                        </button>
+                    </>
                 ):(
                     <Link to={"/login"} className={'text-xs  hidden md:block'}>로그인</Link>
                 )}

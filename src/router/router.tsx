@@ -24,6 +24,7 @@ import CartPage from "../pages/(shop)/CartPage.tsx";
 import OrderPage from "../pages/(shop)/OrderPage.tsx";
 import OrderSuccessPage from "../pages/(shop)/OrderSuccessPage.tsx";
 import OrderFailPage from "../pages/(shop)/OrderFailPage.tsx";
+import SellerInquiry from "../pages/seller/SellerInquiry.tsx";
 
 export const adminOnlyLoader = () => {
     const { isLoggedIn, user } = useAuthStore.getState();
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
             {
                 path: "membership",
                 children: [{ index: true, element: <Membership /> }],
+            },
+            {
+                path:"sellerInquiry",
+                children:[{index:true,element:<SellerInquiry/>}]
             },
             {path:"search", element:<SearchResult/>},
             {path:"cart",element:<CartPage/>},
