@@ -4,6 +4,7 @@ import {twMerge} from "tailwind-merge";
 import Logo from "../../assets/logo.png";
 import {IoIosMenu} from "react-icons/io";
 import useAuthStore from "../../stores/useAuthStore.ts";
+import { useLayoutStore } from "../../stores/useLayoutStore.ts";
 
 const MENU = [
     {
@@ -45,6 +46,7 @@ const MENU = [
 function Header() {
     const {pathname} = useLocation();
     const navigate = useNavigate();
+    const { toggleSidebar } = useLayoutStore();
 
     const{isLoggedIn, user, logout}=useAuthStore();
 
@@ -150,7 +152,10 @@ function Header() {
                     </nav>
                 </div>
                 <div className={twMerge(["w-100", "flex", "justify-end", "items-end"])}>
-                        <button className={twMerge(["right-0", "top-2"])}>
+                        <button
+                            onClick = {toggleSidebar}
+                            className={twMerge(
+                                ['p-2','rounded-full','hover:bg-text-default/10','right-0','top-2'])}>
                             <IoIosMenu className={'w-7 h-7'}/>
                         </button>
                 </div>

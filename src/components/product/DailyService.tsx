@@ -1,10 +1,13 @@
-// 1. 탭 타입 정의
 import { twMerge } from "tailwind-merge";
 import { useState } from "react";
+import hiPass from "../../assets/images/hipass.jpg"
+import tfCard from "../../assets/images/trafficCard.jpg"
+import mobile from "../../assets/images/mobile.jpg"
+import pointMoney from "../../assets/images/point_money.jpg"
 
 type ServiceTab = "voucher" | "transport" | "hiPass" | "point" | "id";
 
-// 2. 탭 메뉴 데이터 배열
+
 const SERVICE_TABS = [
     { id: "voucher", label: "모바일상품권" },
     { id: "transport", label: "교통카드" },
@@ -16,33 +19,44 @@ const SERVICE_TABS = [
 function DailyService() {
     const [activeTab, setActiveTab] = useState<ServiceTab>("voucher");
 
-    // 3. 탭에 따라 보여줄 컨텐츠 (필요에 따라 별도 컴포넌트로 분리 가능)
+
     const renderContent = () => {
         switch (activeTab) {
             case "voucher":
                 return <MobileGift />;
             case "transport":
                 return (
-                    <div className="py-20 text-center text-gray-500">
-                        교통카드 충전 및 이용 안내입니다.
+                    <div>
+                        <img src={tfCard} alt={"교통카드"} />
                     </div>
                 );
             case "hiPass":
                 return (
-                    <div className="py-20 text-center text-gray-500">
-                        하이패스 카드 서비스 정보입니다.
+                    <div>
+                        <img src={hiPass} alt={"하이패스"} />
                     </div>
                 );
             case "point":
                 return (
-                    <div className="py-20 text-center text-gray-500">
-                        포인트 및 머니 적립/사용 안내입니다.
+                    <div>
+                        <div className={twMerge(['flex','flex-col','pb-15'])}>
+                            <h1 className={twMerge(['text-xl'])}>포인트/머니 충전 서비스</h1>
+                            <p className={twMerge(['text-sm','mb-8'])}>CU에서는 24시간 365일 현금으로 다양한 포인트/머니 (네이버페이,카카오페이머니,토스머니,갤럭시 스토어,KB 스타틴즈)이 가능합니다.</p>
+                            <ol>
+                                <li className={twMerge(['text-sm','text-gray-700'])}>1. STAFF에게 포인트로 충전할 금액의 현금을 주세요.</li>
+                                <li className={twMerge(['text-sm','text-gray-700'])}>2. 충전용바코드를 STAFF에게 보여주세요.</li>
+                                <li className={twMerge(['text-sm','text-gray-700'])}>3. STAFF가 바코드를 스캔하고 충전 금액을 입력해주면 충전완료!</li>
+                            </ol>
+                        </div>
+                        <div>
+                            <img src={pointMoney} alt={"포인트/머니"} />
+                        </div>
                     </div>
                 );
             case "id":
                 return (
-                    <div className="py-20 text-center text-gray-500">
-                        모바일 신분확인 서비스 정보입니다.
+                    <div>
+                        <img src={mobile} alt={"모바일 신분확인 "} />
                     </div>
                 );
             default:

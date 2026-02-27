@@ -10,7 +10,7 @@ function Backdrop({children, onClose,isTransparent =false}: BackdropProps){
     return(
         <div
             className={twMerge(['fixed','inset-0','flex','items-center','justify-center'],
-                ['z-50','transition-all'],
+                ['z-40','transition-all'],
                 isTransparent ? "bg-transparent":['bg-black/50','backdrop-blur-sm'])}
             onClick={onClose}
         >
