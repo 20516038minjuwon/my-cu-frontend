@@ -1,10 +1,10 @@
+{/*
 import { twMerge } from "tailwind-merge";
 import { Link, useLocation } from "react-router";
 import { useLayoutStore } from "../../stores/useLayoutStore.ts";
 import useAuthStore from "../../stores/useAuthStore.ts";
 import Backdrop from "../common/Backdrop.tsx";
 
-// CU 메뉴 타입 정의 (아이콘 제외, 설명 추가 가능)
 type MenuItemType = {
     text: string;
     path: string;
@@ -113,3 +113,4 @@ function MenuItem({ item, isActive, onClose }: MenuItemProps) {
         </Link>
     );
 }
+*/}
