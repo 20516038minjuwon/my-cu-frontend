@@ -87,7 +87,7 @@ function Header() {
             <div className={twMerge(['flex','gap-2','justify-end','p-4'])}>
                 {isLoggedIn && user ?(
                     <>
-                        <Link to={"/my-page"} className={'text-xs hover:text-gray-500'}>
+                        <Link to={"/my"} className={'text-xs hover:text-gray-500'}>
                             MY PAGE |
                         </Link>
                         <button

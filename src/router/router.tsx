@@ -25,6 +25,8 @@ import OrderPage from "../pages/(shop)/OrderPage.tsx";
 import OrderSuccessPage from "../pages/(shop)/OrderSuccessPage.tsx";
 import OrderFailPage from "../pages/(shop)/OrderFailPage.tsx";
 import SellerInquiry from "../pages/seller/SellerInquiry.tsx";
+import MyLayout from "../layouts/MyLayout.tsx";
+import MyOrderList from "../pages/(shop)/MyOrderList.tsx";
 
 export const adminOnlyLoader = () => {
     const { isLoggedIn, user } = useAuthStore.getState();
@@ -71,7 +73,21 @@ const router = createBrowserRouter([
                     {index:true,element: <OrderPage/>},
                     {path:"success",element: <OrderSuccessPage/>},
                     {path:"fail",element: <OrderFailPage/>},
-                ]}
+                ]
+            },
+            {
+                path: "my",
+                element: <MyLayout />,
+                children: [
+                    { index: true, element: <div>마이 페이지</div> },
+                    {
+                        path: "orders",
+                        children: [
+                            { index: true, element: <MyOrderList /> },
+                        ],
+                    },
+                ],
+            },
         ],
     },
     {

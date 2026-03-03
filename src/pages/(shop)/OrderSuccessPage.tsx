@@ -40,7 +40,7 @@ function OrderSuccessPage(){
             <p><strong>주문번호 :</strong> {orderId}</p>
             <p><strong>결제금액 :</strong> {amount.toLocaleString()}</p>
         </div>
-        <Button fullWidth={true} onClick={()=>navigate("my-page/orders")}>
+        <Button onClick={()=>navigate("/my/orders")}>
             주문 내역 확인하기
         </Button>
     </div>
